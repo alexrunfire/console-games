@@ -10,7 +10,7 @@ welcome();
 console.log('Answer "yes" if the number is even, otherwise answer "no".\n');
 const name = getName();
 console.log(`Hello, ${name}!\n`);
-const block = (counter) => {
+const cycle = (counter = 0) => {
   if (counter === 3) {
     return console.log(`Congratulations, ${name}!`);
   }
@@ -18,23 +18,11 @@ const block = (counter) => {
   const number = getRandomNum(100);
   console.log(`Question: ${number}`);
   const answer = readlineSync.question('Your answer: ');
-  const result = (boolean, count = 0) => {
-    if (boolean === true) {
-      console.log('Correct!');
-      return block(count);
-    }
-    console.log(`'${answer}' is wrong answer ;(. Correct answer was '${trueAns(number)}'.\nLet's try again, ${name}!`);
-    return block(count);
-  };
-  const check = (ans) => {
-    if ((ans === 'no') && (number % 2 !== 0)) {
-      return result(true, counter + 1);
-    }
-    if ((ans === 'yes') && (number % 2 === 0)) {
-      return result(true, counter + 1);
-    }
-    return result(false);
-  };
-  return check(answer);
+  if (((answer === 'yes') && (number % 2 === 0)) || ((answer === 'no') && (number % 2 !== 0))) {
+    console.log('Correct!');
+    return cycle(counter + 1);
+  }
+  console.log(`'${answer}' is wrong answer ;(. Correct answer was '${trueAns(number)}'.\nLet's try again, ${name}!`);
+  return cycle();
 };
-block(0);
+cycle();
