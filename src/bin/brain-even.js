@@ -19,14 +19,11 @@ const cycle = (counter = 0) => {
   const number = getRandomNum(100);
   console.log(`Question: ${number}`);
   const answer = readlineSync.question('Your answer: ');
-  const reply = () => {
-    if ((answer === 'yes' && number % 2 === 0) || (answer === 'no' && number % 2 !== 0)) {
-      console.log('Correct!');
-      return cycle(counter + 1);
-    }
-    console.log(`'${answer}' is wrong answer ;(. Correct answer was '${trueAns(number)}'.\nLet's try again, ${name}!`);
-    return cycle();
-  };
-  return reply();
+  if ((answer === 'yes' && number % 2 === 0) || (answer === 'no' && number % 2 !== 0)) {
+    console.log('Correct!');
+    return cycle(counter + 1);
+  }
+  console.log(`'${answer}' is wrong answer ;(. Correct answer was '${trueAns(number)}'.\nLet's try again, ${name}!`);
+  return cycle();
 };
 cycle();
