@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint-disable no-console */
 
 import readlineSync from 'readline-sync';
 
@@ -11,14 +12,6 @@ welcome();
 console.log('Answer "yes" if the number is even, otherwise answer "no".\n');
 const name = getName();
 console.log(`Hello, ${name}!\n`);
-const reply = (answer, number, counter) => {
-  if (((answer === 'yes') && (number % 2 === 0)) || ((answer === 'no') && (number % 2 !== 0))) {
-    console.log('Correct!');
-    return cycle(counter + 1);
-  }
-  console.log(`'${answer}' is wrong answer ;(. Correct answer was '${trueAns(number)}'.\nLet's try again, ${name}!`);
-  return cycle();
-};
 const cycle = (counter = 0) => {
   if (counter === 3) {
     return console.log(`Congratulations, ${name}!`);
@@ -26,6 +19,14 @@ const cycle = (counter = 0) => {
   const number = getRandomNum(100);
   console.log(`Question: ${number}`);
   const answer = readlineSync.question('Your answer: ');
-  return reply(answer, number, counter);
+  const reply = () => {
+    if ((answer === 'yes' && number % 2 === 0) || (answer === 'no' && number % 2 !== 0)) {
+      console.log('Correct!');
+      return cycle(counter + 1);
+    }
+    console.log(`'${answer}' is wrong answer ;(. Correct answer was '${trueAns(number)}'.\nLet's try again, ${name}!`);
+    return cycle();
+  };
+  return reply();
 };
 cycle();
