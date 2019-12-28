@@ -12,13 +12,12 @@ welcome();
 console.log('Answer "yes" if the number is even, otherwise answer "no".\n');
 const name = getName();
 console.log(`Hello, ${name}!\n`);
-const reply = (answer, number, counter) => {
+const reply = (answer, number) => {
   if ((answer === 'yes' && number % 2 === 0) || (answer === 'no' && number % 2 !== 0)) {
     console.log('Correct!');
-    return counter + 1;
+    return true;
   }
-  console.log(`'${answer}' is wrong answer ;(. Correct answer was '${trueAns(number)}'.\nLet's try again, ${name}!`);
-  return 0;
+  return false;
 };
 const cycle = (counter = 0) => {
   if (counter === 3) {
@@ -27,6 +26,6 @@ const cycle = (counter = 0) => {
   const number = getRandomNum(100);
   console.log(`Question: ${number}`);
   const answer = readlineSync.question('Your answer: ');
-  return cycle(reply(answer, number, counter));
+  return reply(answer, number) ? cycle(counter + 1) : console.log(`'${answer}' is wrong answer ;(. Correct answer was '${trueAns(number)}'.\nLet's try again, ${name}!`);
 };
 cycle();
