@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* eslint-disable no-console */
 
-import { welcome, getName } from '..';
+import { welcome, getName } from '../..';
 
 welcome();
 console.log();
