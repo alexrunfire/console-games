@@ -2,6 +2,7 @@
 
 import readlineSync from 'readline-sync';
 
+export const getRandomNum = (maxNumber) => () => Math.floor(Math.random() * maxNumber);
 export const welcome = () => console.log('Welcome to the Brain-Games!');
 export const getName = () => readlineSync.question('May I have your name? ');
 export const start = (phrase) => {
@@ -23,8 +24,8 @@ export const cycle = (name, funcForRandom, correctRes, counter = 0) => {
   if (counter === 3) {
     return console.log(`Congratulations, ${name}!`);
   }
-  const expression = funcForRandom;
+  const expression = funcForRandom();
   console.log(`Question: ${expression}`);
   const answer = readlineSync.question('Your answer: ');
-  return reply(answer, expression, correctRes) ? cycle(counter + 1) : console.log(`'${answer}' is wrong answer ;(. Correct answer was '${correctRes(expression)}'.\nLet's try again, ${name}!`);
+  return reply(answer, expression, correctRes) ? cycle(name, funcForRandom, correctRes, counter + 1) : console.log(`'${answer}' is wrong answer ;(. Correct answer was '${correctRes(expression)}'.\nLet's try again, ${name}!`);
 };
