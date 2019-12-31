@@ -3,6 +3,20 @@
 import readlineSync from 'readline-sync';
 
 export const getRandomNum = (maxNumber) => () => Math.floor(Math.random() * maxNumber);
+export const getSecondNum = (expression) => {
+  let secondNum = '';
+  for (let i = expression.length - 1; expression[i] !== ' '; i -= 1) {
+    secondNum = expression[i] + secondNum;
+  }
+  return secondNum;
+};
+export const getFirstNum = (expression) => {
+  let firstNum = '';
+  for (let i = 0; expression[i] !== ' '; i += 1) {
+    firstNum += expression[i];
+  }
+  return firstNum;
+};
 export const welcome = () => console.log('Welcome to the Brain-Games!');
 export const getName = () => readlineSync.question('May I have your name? ');
 export const start = (phrase) => {

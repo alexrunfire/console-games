@@ -6,7 +6,8 @@
   "bin": {
     "brain-games": "dist/bin/games/brain-games.js",
     "brain-even": "dist/bin/games/brain-even.js",
-    "brain-calc": "dist/bin/games/brain-calc.js"
+    "brain-calc": "dist/bin/games/brain-calc.js",
+    "brain-gcd": "dist/bin/games/brain-gcd.js"
   },
   "scripts": {
     "build": "NODE_ENV=production babel src --out-dir dist --source-maps inline",
@@ -45,6 +46,7 @@
     "prettier": "1.19.1"
   },
   "dependencies": {
+    "greatest-common-divisor": "^1.0.0",
     "readline-sync": "^1.4.10"
   }
 }

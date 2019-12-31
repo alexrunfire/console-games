@@ -1,23 +1,11 @@
 #!/usr/bin/env node
 /* eslint-disable no-console */
 
-import { start, cycle, getRandomNum } from '../..';
+import {
+  start, cycle, getRandomNum, getFirstNum, getSecondNum,
+} from '../..';
 
 const getSign = (firstNum, expression) => expression[String(firstNum).length + 1];
-const getSecondNum = (expression) => {
-  let secondNum = '';
-  for (let i = expression.length - 1; expression[i] !== ' '; i -= 1) {
-    secondNum = expression[i] + secondNum;
-  }
-  return secondNum;
-};
-const getFirstNum = (expression) => {
-  let firstNum = '';
-  for (let i = 0; expression[i] !== ' '; i += 1) {
-    firstNum += expression[i];
-  }
-  return firstNum;
-};
 const getCalc = (expression) => {
   const firstNum = Number(getFirstNum(expression));
   const secondNum = Number(getSecondNum(expression));
