@@ -21,7 +21,7 @@ const getCalc = (expression) => {
   return false;
 };
 const getRandomSign = () => {
-  switch (getRandomNum(3)()) {
+  switch (getRandomNum(0, 3)()) {
     case 0:
       return '+';
     case 1:
@@ -32,6 +32,6 @@ const getRandomSign = () => {
   }
   return false;
 };
-const getRandomExpr = () => `${getRandomNum(100)()} ${getRandomSign()} ${getRandomNum(100)()}`;
+const getRandomExpr = () => `${getRandomNum(0, 100)()} ${getRandomSign()} ${getRandomNum(0, 100)()}`;
 const name = start('What is the result of the expression?');
 cycle(name, getRandomExpr, getCalc);

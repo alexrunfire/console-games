@@ -2,7 +2,7 @@
 
 import readlineSync from 'readline-sync';
 
-export const getRandomNum = (maxNumber) => () => Math.floor(Math.random() * maxNumber);
+export const getRandomNum = (min, max) => () => Math.floor(Math.random() * (max - min) + min);
 export const getSecondNum = (expression) => {
   let secondNum = '';
   for (let i = expression.length - 1; expression[i] !== ' '; i -= 1) {
