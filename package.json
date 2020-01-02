@@ -8,7 +8,8 @@
     "brain-even": "dist/bin/games/brain-even.js",
     "brain-calc": "dist/bin/games/brain-calc.js",
     "brain-gcd": "dist/bin/games/brain-gcd.js",
-    "brain-progression": "dist/bin/games/brain-progression.js"
+    "brain-progression": "dist/bin/games/brain-progression.js",
+    "brain-prime": "dist/bin/games/brain-prime.js"
   },
   "scripts": {
     "build": "NODE_ENV=production babel src --out-dir dist --source-maps inline",
@@ -48,6 +49,7 @@
   },
   "dependencies": {
     "greatest-common-divisor": "^1.0.0",
+    "prime-number": "^1.0.2",
     "readline-sync": "^1.4.10"
   }
 }
