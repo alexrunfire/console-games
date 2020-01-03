@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /* eslint-disable no-console */
 
-import { welcome, getName } from '../..';
+import engine from '../..';
 
-welcome();
+engine.welcome();
 console.log();
-console.log(`Hello, ${getName()}!`);
+console.log(`Hello, ${engine.getName()}!`);

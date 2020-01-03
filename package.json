@@ -1,8 +1,13 @@
 {
   "name": "frontend-project-lvl1-MA",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "first Hexlet project",
+  "keywords": [
+    "games",
+    "Hexlet",
+    "project"
+  ],
+  "main": "dist/index.js",
   "bin": {
     "brain-games": "dist/bin/games/brain-games.js",
     "brain-even": "dist/bin/games/brain-even.js",
@@ -23,7 +28,7 @@
     "type": "git",
     "url": "git+https://github.com/alexrunfire/frontend-project-lvl1.git"
   },
-  "author": "",
+  "author": "Aleksey Makarov",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/alexrunfire/frontend-project-lvl1/issues"
