@@ -3,15 +3,46 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.cycle = exports.start = void 0;
 
-var engine = _interopRequireWildcard(require("./engine"));
+var _readlineSync = _interopRequireDefault(require("readline-sync"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+const start = phrase => {
+  console.log();
+  console.log('Welcome to the Brain-Games!');
+  console.log(`${phrase}\n`);
 
-/* eslint-disable no-console */
-var _default = engine;
-exports.default = _default;
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9pbmRleC5qcyJdLCJuYW1lcyI6WyJlbmdpbmUiXSwibWFwcGluZ3MiOiI7Ozs7Ozs7QUFFQTs7Ozs7O0FBRkE7ZUFJZUEsTSIsInNvdXJjZXNDb250ZW50IjpbIi8qIGVzbGludC1kaXNhYmxlIG5vLWNvbnNvbGUgKi9cblxuaW1wb3J0ICogYXMgZW5naW5lIGZyb20gJy4vZW5naW5lJztcblxuZXhwb3J0IGRlZmF1bHQgZW5naW5lO1xuIl19
+  const name = _readlineSync.default.question('May I have your name? ');
+
+  console.log(`Hello, ${name}!\n`);
+  return name;
+};
+
+exports.start = start;
+
+const reply = (answer, expression, correctRes) => {
+  if (answer === correctRes(expression)) {
+    console.log('Correct!');
+    return true;
+  }
+
+  return false;
+};
+
+const cycle = (name, funcForRandom, correctRes, counter = 0) => {
+  if (counter === 3) {
+    return console.log(`Congratulations, ${name}!`);
+  }
+
+  const expression = funcForRandom();
+  console.log(`Question: ${expression}`);
+
+  const answer = _readlineSync.default.question('Your answer: ');
+
+  return reply(answer, expression, correctRes) ? cycle(name, funcForRandom, correctRes, counter + 1) : console.log(`'${answer}' is wrong answer ;(. Correct answer was '${correctRes(expression)}'.\nLet's try again, ${name}!`);
+};
+
+exports.cycle = cycle;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9pbmRleC5qcyJdLCJuYW1lcyI6WyJzdGFydCIsInBocmFzZSIsImNvbnNvbGUiLCJsb2ciLCJuYW1lIiwicmVhZGxpbmVTeW5jIiwicXVlc3Rpb24iLCJyZXBseSIsImFuc3dlciIsImV4cHJlc3Npb24iLCJjb3JyZWN0UmVzIiwiY3ljbGUiLCJmdW5jRm9yUmFuZG9tIiwiY291bnRlciJdLCJtYXBwaW5ncyI6Ijs7Ozs7OztBQUFBOzs7O0FBRU8sTUFBTUEsS0FBSyxHQUFJQyxNQUFELElBQVk7QUFDL0JDLEVBQUFBLE9BQU8sQ0FBQ0MsR0FBUjtBQUNBRCxFQUFBQSxPQUFPLENBQUNDLEdBQVIsQ0FBWSw2QkFBWjtBQUNBRCxFQUFBQSxPQUFPLENBQUNDLEdBQVIsQ0FBYSxHQUFFRixNQUFPLElBQXRCOztBQUNBLFFBQU1HLElBQUksR0FBR0Msc0JBQWFDLFFBQWIsQ0FBc0Isd0JBQXRCLENBQWI7O0FBQ0FKLEVBQUFBLE9BQU8sQ0FBQ0MsR0FBUixDQUFhLFVBQVNDLElBQUssS0FBM0I7QUFDQSxTQUFPQSxJQUFQO0FBQ0QsQ0FQTTs7OztBQVNQLE1BQU1HLEtBQUssR0FBRyxDQUFDQyxNQUFELEVBQVNDLFVBQVQsRUFBcUJDLFVBQXJCLEtBQW9DO0FBQ2hELE1BQUlGLE1BQU0sS0FBS0UsVUFBVSxDQUFDRCxVQUFELENBQXpCLEVBQXVDO0FBQ3JDUCxJQUFBQSxPQUFPLENBQUNDLEdBQVIsQ0FBWSxVQUFaO0FBQ0EsV0FBTyxJQUFQO0FBQ0Q7O0FBQ0QsU0FBTyxLQUFQO0FBQ0QsQ0FORDs7QUFRTyxNQUFNUSxLQUFLLEdBQUcsQ0FBQ1AsSUFBRCxFQUFPUSxhQUFQLEVBQXNCRixVQUF0QixFQUFrQ0csT0FBTyxHQUFHLENBQTVDLEtBQWtEO0FBQ3JFLE1BQUlBLE9BQU8sS0FBSyxDQUFoQixFQUFtQjtBQUNqQixXQUFPWCxPQUFPLENBQUNDLEdBQVIsQ0FBYSxvQkFBbUJDLElBQUssR0FBckMsQ0FBUDtBQUNEOztBQUNELFFBQU1LLFVBQVUsR0FBR0csYUFBYSxFQUFoQztBQUNBVixFQUFBQSxPQUFPLENBQUNDLEdBQVIsQ0FBYSxhQUFZTSxVQUFXLEVBQXBDOztBQUNBLFFBQU1ELE1BQU0sR0FBR0gsc0JBQWFDLFFBQWIsQ0FBc0IsZUFBdEIsQ0FBZjs7QUFDQSxTQUFPQyxLQUFLLENBQUNDLE1BQUQsRUFBU0MsVUFBVCxFQUFxQkMsVUFBckIsQ0FBTCxHQUF3Q0MsS0FBSyxDQUFDUCxJQUFELEVBQU9RLGFBQVAsRUFBc0JGLFVBQXRCLEVBQWtDRyxPQUFPLEdBQUcsQ0FBNUMsQ0FBN0MsR0FBOEZYLE9BQU8sQ0FBQ0MsR0FBUixDQUFhLElBQUdLLE1BQU8sNkNBQTRDRSxVQUFVLENBQUNELFVBQUQsQ0FBYSx3QkFBdUJMLElBQUssR0FBdEgsQ0FBckc7QUFDRCxDQVJNIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHJlYWRsaW5lU3luYyBmcm9tICdyZWFkbGluZS1zeW5jJztcblxuZXhwb3J0IGNvbnN0IHN0YXJ0ID0gKHBocmFzZSkgPT4ge1xuICBjb25zb2xlLmxvZygpO1xuICBjb25zb2xlLmxvZygnV2VsY29tZSB0byB0aGUgQnJhaW4tR2FtZXMhJyk7XG4gIGNvbnNvbGUubG9nKGAke3BocmFzZX1cXG5gKTtcbiAgY29uc3QgbmFtZSA9IHJlYWRsaW5lU3luYy5xdWVzdGlvbignTWF5IEkgaGF2ZSB5b3VyIG5hbWU/ICcpO1xuICBjb25zb2xlLmxvZyhgSGVsbG8sICR7bmFtZX0hXFxuYCk7XG4gIHJldHVybiBuYW1lO1xufTtcblxuY29uc3QgcmVwbHkgPSAoYW5zd2VyLCBleHByZXNzaW9uLCBjb3JyZWN0UmVzKSA9PiB7XG4gIGlmIChhbnN3ZXIgPT09IGNvcnJlY3RSZXMoZXhwcmVzc2lvbikpIHtcbiAgICBjb25zb2xlLmxvZygnQ29ycmVjdCEnKTtcbiAgICByZXR1cm4gdHJ1ZTtcbiAgfVxuICByZXR1cm4gZmFsc2U7XG59O1xuXG5leHBvcnQgY29uc3QgY3ljbGUgPSAobmFtZSwgZnVuY0ZvclJhbmRvbSwgY29ycmVjdFJlcywgY291bnRlciA9IDApID0+IHtcbiAgaWYgKGNvdW50ZXIgPT09IDMpIHtcbiAgICByZXR1cm4gY29uc29sZS5sb2coYENvbmdyYXR1bGF0aW9ucywgJHtuYW1lfSFgKTtcbiAgfVxuICBjb25zdCBleHByZXNzaW9uID0gZnVuY0ZvclJhbmRvbSgpO1xuICBjb25zb2xlLmxvZyhgUXVlc3Rpb246ICR7ZXhwcmVzc2lvbn1gKTtcbiAgY29uc3QgYW5zd2VyID0gcmVhZGxpbmVTeW5jLnF1ZXN0aW9uKCdZb3VyIGFuc3dlcjogJyk7XG4gIHJldHVybiByZXBseShhbnN3ZXIsIGV4cHJlc3Npb24sIGNvcnJlY3RSZXMpID8gY3ljbGUobmFtZSwgZnVuY0ZvclJhbmRvbSwgY29ycmVjdFJlcywgY291bnRlciArIDEpIDogY29uc29sZS5sb2coYCcke2Fuc3dlcn0nIGlzIHdyb25nIGFuc3dlciA7KC4gQ29ycmVjdCBhbnN3ZXIgd2FzICcke2NvcnJlY3RSZXMoZXhwcmVzc2lvbil9Jy5cXG5MZXQncyB0cnkgYWdhaW4sICR7bmFtZX0hYCk7XG59O1xuIl19
