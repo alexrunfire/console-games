@@ -1,6 +1,0 @@
-{
-  "eslint.format.enable": true,
-  "eslint.alwaysShowStatus": true,
-  "eslint.lintTask.enable": true,
-  "editor.formatOnSave": true
-}
