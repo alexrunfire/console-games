@@ -1,51 +1,30 @@
-import { start, cycle } from '..';
+import { cons } from '@hexlet/pairs';
 
-import { getRandomNum, getFirstNum, getSecondNum } from '../utils';
+import startGameEngine from '..';
 
-const outNum = (progression, partToSkip) => {
-  if (partToSkip.length === 0) {
-    const progr = progression.substring(3, progression.length - 1);
-    const first = Number(getFirstNum(progr));
-    const last = Number(getSecondNum(progr));
-    return String(first - ((last - first) / 8));
-  }
-  const progr = progression.substring(0, partToSkip.length - 1);
-  const first = Number(getFirstNum(progr));
-  const last = Number(getSecondNum(progr));
-  return String(last + (last - first) / 8);
+import getRandomNum from '../utils';
+
+const findSkippedElement = (firstNum, diff, numberOfSkippedEl) => {
+  const elementDiff = diff * (numberOfSkippedEl - 1);
+  return String(firstNum + elementDiff);
 };
-const inNum = (progression, partToSkip) => {
-  const leftPart = ` ${partToSkip.substring(0, partToSkip.length - 1)}`;
-  const rightPart = `${progression.substring(partToSkip.length + 3, progression.length - 1)} `;
-  const left = Number(getSecondNum(leftPart));
-  const right = Number(getFirstNum(rightPart));
-  return String((left + right) / 2);
-};
-const findSkipped = (progression) => {
-  let partToSkip = '';
-  for (let i = 0; progression[i] !== '.'; i += 1) {
-    partToSkip += progression[i];
-  }
-  const outInLeft = partToSkip.length === 0;
-  const outInRight = partToSkip.length + 3 === progression.length;
-  return outInLeft || outInRight ? outNum(progression, partToSkip) : inNum(progression, partToSkip);
-};
-const randomProgr = () => {
-  const first = getRandomNum(0, 100)();
-  const diff = getRandomNum(1, 11)();
-  const skippedEl = getRandomNum(1, 11)();
+
+const getProgression = () => {
+  const firstNumber = getRandomNum(0, 100);
+  const difference = getRandomNum(1, 10);
+  const numberOfSkippedElement = getRandomNum(1, 10);
   let progression = '';
   for (let i = 1; i < 11; i += 1) {
-    if (i === skippedEl) {
+    if (i === numberOfSkippedElement) {
       progression += '.. ';
     } else {
-      progression = `${progression}${first + diff * (i - 1)} `;
+      progression = `${progression}${firstNumber + difference * (i - 1)} `;
     }
   }
-  return progression;
+  const skippedElement = findSkippedElement(firstNumber, difference, numberOfSkippedElement);
+  return cons(progression, skippedElement);
 };
 
 export default () => {
-  const name = start('What number is missing in the progression?');
-  cycle(name, randomProgr, findSkipped);
+  startGameEngine('What number is missing in the progression?', getProgression);
 };

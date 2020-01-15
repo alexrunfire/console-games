@@ -1,12 +1,11 @@
-import { start, cycle } from '..';
+import { cons } from '@hexlet/pairs';
 
-import { getRandomNum, getFirstNum, getSecondNum } from '../utils';
+import startGameEngine from '..';
 
-const getCalc = (expression) => {
-  const firstNum = Number(getFirstNum(expression));
-  const secondNum = Number(getSecondNum(expression));
-  const sign = expression[String(firstNum).length + 1];
-  switch (sign) {
+import getRandomNum from '../utils';
+
+const calculateNumbers = (firstNum, secondNum, mathSign) => {
+  switch (mathSign) {
     case '+':
       return String(firstNum + secondNum);
     case '-':
@@ -18,8 +17,8 @@ const getCalc = (expression) => {
   return false;
 };
 
-const getRandomSign = () => {
-  switch (getRandomNum(0, 3)()) {
+const getRandomMathSign = () => {
+  switch (getRandomNum(0, 2)) {
     case 0:
       return '+';
     case 1:
@@ -31,9 +30,15 @@ const getRandomSign = () => {
   return false;
 };
 
-const getTwoRandomNum = () => `${getRandomNum(0, 100)()} ${getRandomSign()} ${getRandomNum(0, 100)()}`;
+const getMathExpression = () => {
+  const firstNumber = getRandomNum(0, 100);
+  const secondNumber = getRandomNum(0, 100);
+  const sign = getRandomMathSign();
+  const mathExpression = `${firstNumber} ${sign} ${secondNumber}`;
+  const resultOfExpression = calculateNumbers(firstNumber, secondNumber, sign);
+  return cons(mathExpression, resultOfExpression);
+};
 
 export default () => {
-  const name = start('What is the result of the expression?');
-  cycle(name, getTwoRandomNum, getCalc);
+  startGameEngine('What is the result of the expression?', getMathExpression);
 };
