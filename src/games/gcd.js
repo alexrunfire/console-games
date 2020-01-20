@@ -1,19 +1,28 @@
-import gcd from 'greatest-common-divisor';
-
 import { cons } from '@hexlet/pairs';
 
 import startGameEngine from '..';
 
 import getRandomNum from '../utils';
 
-const getGcd = () => {
-  const firstNum = getRandomNum(2, 100);
-  const secondNum = getRandomNum(2, 100);
-  const gcdOfNumbers = String(gcd(firstNum, secondNum));
-  const givenNumbers = `${firstNum} ${secondNum}`;
-  return cons(givenNumbers, gcdOfNumbers);
+const gameDescription = 'Find the greatest common divisor of given numbers.';
+
+const findGcd = (firstNum, secondNum) => {
+  const leastNumber = Math.min(firstNum, secondNum);
+  const largestNumber = Math.max(firstNum, secondNum);
+  const iter = (i = 1) => {
+    const probableCommonDivisor = leastNumber / i;
+    const checkProbableDivForLargNum = largestNumber % probableCommonDivisor === 0;
+    return checkProbableDivForLargNum ? probableCommonDivisor : iter(i + 1);
+  };
+  return iter();
 };
 
-export default () => {
-  startGameEngine('Find the greatest common divisor of given numbers.', getGcd);
+const getQuestionAndAnswer = () => {
+  const firstNum = getRandomNum(2, 100);
+  const secondNum = getRandomNum(2, 100);
+  const answer = String(findGcd(firstNum, secondNum));
+  const question = `${firstNum} ${secondNum}`;
+  return cons(question, answer);
 };
+
+export default () => startGameEngine(gameDescription, getQuestionAndAnswer);

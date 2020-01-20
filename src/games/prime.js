@@ -1,17 +1,26 @@
-import isPrime from 'prime-number';
-
 import { cons } from '@hexlet/pairs';
 
 import startGameEngine from '..';
 
 import getRandomNum from '../utils';
 
-const getNumber = () => {
-  const randomNumber = getRandomNum(2, 1000);
-  const trueAnswer = isPrime(randomNumber) ? 'yes' : 'no';
-  return cons(randomNumber, trueAnswer);
+const gameDescription = 'Answer "yes" if given number is prime. Otherwise answer "no".';
+
+const isPrime = (number) => {
+  const iter = (i = 2) => {
+    if (i > (number / 2)) {
+      return true;
+    }
+    const remainderOfDivision = number % i;
+    return remainderOfDivision === 0 ? false : iter(i + 1);
+  };
+  return iter();
 };
 
-export default () => {
-  startGameEngine('Answer "yes" if given number is prime. Otherwise answer "no".', getNumber);
+const getQuestionAndAnswer = () => {
+  const question = getRandomNum(2, 1000);
+  const answer = isPrime(question) ? 'yes' : 'no';
+  return cons(question, answer);
 };
+
+export default () => startGameEngine(gameDescription, getQuestionAndAnswer);

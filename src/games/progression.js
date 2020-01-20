@@ -4,27 +4,27 @@ import startGameEngine from '..';
 
 import getRandomNum from '../utils';
 
+const gameDescription = 'What number is missing in the progression?';
+
 const findSkippedElement = (firstNum, diff, numberOfSkippedEl) => {
   const elementDiff = diff * (numberOfSkippedEl - 1);
-  return String(firstNum + elementDiff);
+  return firstNum + elementDiff;
 };
 
-const getProgression = () => {
+const getQuestionAndAnswer = () => {
   const firstNumber = getRandomNum(0, 100);
   const difference = getRandomNum(1, 10);
   const numberOfSkippedElement = getRandomNum(1, 10);
-  let progression = '';
+  let question = '';
   for (let i = 1; i < 11; i += 1) {
     if (i === numberOfSkippedElement) {
-      progression += '.. ';
+      question += '.. ';
     } else {
-      progression = `${progression}${firstNumber + difference * (i - 1)} `;
+      question = `${question}${firstNumber + difference * (i - 1)} `;
     }
   }
-  const skippedElement = findSkippedElement(firstNumber, difference, numberOfSkippedElement);
-  return cons(progression, skippedElement);
+  const answer = String(findSkippedElement(firstNumber, difference, numberOfSkippedElement));
+  return cons(question, answer);
 };
 
-export default () => {
-  startGameEngine('What number is missing in the progression?', getProgression);
-};
+export default () => startGameEngine(gameDescription, getQuestionAndAnswer);

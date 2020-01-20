@@ -4,41 +4,30 @@ import startGameEngine from '..';
 
 import getRandomNum from '../utils';
 
-const calculateNumbers = (firstNum, secondNum, mathSign) => {
-  switch (mathSign) {
+const gameDescription = 'What is the result of the expression?';
+
+const mathOperators = ['+', '-', '*'];
+
+const calculateNumbers = (firstNum, secondNum, mathOperator) => {
+  switch (mathOperator) {
     case '+':
-      return String(firstNum + secondNum);
+      return firstNum + secondNum;
     case '-':
-      return String(firstNum - secondNum);
+      return firstNum - secondNum;
     case '*':
-      return String(firstNum * secondNum);
+      return firstNum * secondNum;
     default:
   }
   return false;
 };
 
-const getRandomMathSign = () => {
-  switch (getRandomNum(0, 2)) {
-    case 0:
-      return '+';
-    case 1:
-      return '-';
-    case 2:
-      return '*';
-    default:
-  }
-  return false;
-};
-
-const getMathExpression = () => {
+const getQuestionAndAnswer = () => {
   const firstNumber = getRandomNum(0, 100);
   const secondNumber = getRandomNum(0, 100);
-  const sign = getRandomMathSign();
-  const mathExpression = `${firstNumber} ${sign} ${secondNumber}`;
-  const resultOfExpression = calculateNumbers(firstNumber, secondNumber, sign);
-  return cons(mathExpression, resultOfExpression);
+  const mathOperator = mathOperators[getRandomNum(0, mathOperators.length - 1)];
+  const question = `${firstNumber} ${mathOperator} ${secondNumber}`;
+  const answer = String(calculateNumbers(firstNumber, secondNumber, mathOperator));
+  return cons(question, answer);
 };
 
-export default () => {
-  startGameEngine('What is the result of the expression?', getMathExpression);
-};
+export default () => startGameEngine(gameDescription, getQuestionAndAnswer);
