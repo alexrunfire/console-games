@@ -1,6 +1,0 @@
-{
-  "plugins": ["airbnb", "prettier"],
-  "rules": {
-    "prettier/prettier": "error"
-  }
-}

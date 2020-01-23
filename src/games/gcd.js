@@ -9,10 +9,10 @@ const gameDescription = 'Find the greatest common divisor of given numbers.';
 const findGcd = (firstNum, secondNum) => {
   const leastNumber = Math.min(firstNum, secondNum);
   const largestNumber = Math.max(firstNum, secondNum);
-  const iter = (i = 1) => {
-    const probableCommonDivisor = leastNumber / i;
-    const checkProbableDivForLargNum = largestNumber % probableCommonDivisor === 0;
-    return checkProbableDivForLargNum ? probableCommonDivisor : iter(i + 1);
+  const iter = (divisor = 1) => {
+    const commonDiv = leastNumber / divisor;
+    const checkCommonDiv = largestNumber % commonDiv === 0;
+    return checkCommonDiv ? commonDiv : iter(divisor + 1);
   };
   return iter();
 };
