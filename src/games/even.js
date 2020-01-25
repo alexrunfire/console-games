@@ -9,9 +9,9 @@ const gameDescription = 'Answer "yes" if the number is even, otherwise answer "n
 const isEven = (num) => num % 2 === 0;
 
 const getQuestionAndAnswer = () => {
-  const question = String(getRandomNum(0, 100));
+  const question = getRandomNum(0, 100);
   const answer = isEven(question) ? 'yes' : 'no';
-  return cons(question, answer);
+  return cons(String(question), answer);
 };
 
 export default () => startGameEngine(gameDescription, getQuestionAndAnswer);

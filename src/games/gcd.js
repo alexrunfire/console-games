@@ -11,8 +11,8 @@ const findGcd = (firstNum, secondNum) => {
   const largestNumber = Math.max(firstNum, secondNum);
   const iter = (divisor = 1) => {
     const commonDiv = leastNumber / divisor;
-    const checkCommonDiv = largestNumber % commonDiv === 0;
-    return checkCommonDiv ? commonDiv : iter(divisor + 1);
+    const isCommonDiv = largestNumber % commonDiv === 0;
+    return isCommonDiv ? commonDiv : iter(divisor + 1);
   };
   return iter();
 };

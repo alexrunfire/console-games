@@ -21,9 +21,9 @@ const isPrime = (number) => {
 };
 
 const getQuestionAndAnswer = () => {
-  const question = String(getRandomNum(2, 1000));
+  const question = getRandomNum(2, 1000);
   const answer = isPrime(question) ? 'yes' : 'no';
-  return cons(question, answer);
+  return cons(String(question), answer);
 };
 
 export default () => startGameEngine(gameDescription, getQuestionAndAnswer);

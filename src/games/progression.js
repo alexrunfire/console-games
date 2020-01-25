@@ -20,7 +20,7 @@ const getQuestionAndAnswer = () => {
   let progression = '';
   for (let i = 1; i <= progressionLength; i += 1) {
     if (i === numberOfSkippedElement) {
-      progression += '.. ';
+      progression = `${progression}.. `;
     } else {
       progression = `${progression}${firstNumber + difference * (i - 1)} `;
     }
